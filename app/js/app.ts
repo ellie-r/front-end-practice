@@ -1,11 +1,32 @@
-interface Person {
-    name: string
-    age: number
+
+let jobsList: HTMLElement = document.querySelector('.jobsList');
+
+async function getJobs(): Promise<any> {
+    let data = await fetch('data.json');
+    return data.json();
 }
 
-function displayName(person: Person) {
-    console.log(person.name)
+
+async function getHandlebarTemplate(path: string) {
+    let response = await fetch(
+        path,
+        {method: 'get'}
+    )
+    return response.text()
 }
 
-let obj = {name:'Joe', age:21}
-displayName(obj);
+async function populateHandlebars() {
+    let dataToInsert = await getJobs();
+    console.log(dataToInsert);
+    let HBTemplate = await getHandlebarTemplate('js/templates/job.hbs');
+
+    let template: Function = Handlebars.compile(HBTemplate);
+    dataToInsert.forEach( (job)=> {
+        console.log(job);
+        jobsList.innerHTML += template(job);
+    })
+
+
+}
+
+populateHandlebars();

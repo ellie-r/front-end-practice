@@ -1,5 +1,68 @@
 body {
   display: block;
-  color: red;
-  border: 1px;
+  background-color: hsl(180, 52%, 96%);
+  font-size: 15px;
+  font-family: 'Spartan', sans-serif;
+  margin: 0;
+}
+
+header img {
+  width: 100%;
+}
+
+.jobsList {
+  margin: 0 100px;
+}
+
+.job {
+  display: flex;
+  background-color: white;
+  margin: 50px 0;
+  border-radius: 8px;
+  position: relative;
+  img {
+    height: 90px;
+    align-self: center;
+    padding: 0 30px;
+  }
+  .featured {
+    overflow: hidden;
+    .line {
+      width: 5px;
+      background-color: hsl(180, 29%, 50%);
+      height: 100%;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+  }
+  &::before {
+    width: 5px;
+    background-color: hsl(180, 29%, 50%);
+    height: 100%;
+  }
+
+}
+.top {
+  color: hsl(180, 29%, 50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.otherInfo {
+  display: flex;
+}
+
+.languages {
+  display: flex;
+  align-self: center;
+
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  a {
+    color: hsl(228, 45%, 44%);
+  }
 }
