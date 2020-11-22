@@ -8,19 +8,23 @@
         <h3>{{company}}</h3>
             <div class="stickers">
         {{#if new}}
-            <p>NEW!</p>
+
+                <p class="new">NEW!</p>
+
         {{/if}}
         {{#if featured}}
-            <p>FEATURED</p>
+
+                <p class="featured">FEATURED</p>
+
         {{/if}}
             </div>
         </div>
         <h2>{{position}}</h2>
-        <div class="otherInfo">
-            <p>{{postedAt}}</p>
-            <p>{{contract}}</p>
-            <p>{{location}}</p>
-        </div>
+        <ul class="otherInfo">
+            <li class="noBullet">{{postedAt}}</li>
+            <li>{{contract}}</li>
+            <li>{{location}}</li>
+        </ul>
     </div>
     <div class="languages">
             <p>{{role}}</p>

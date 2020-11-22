@@ -69,13 +69,11 @@ function populateHandlebars() {
                 case 0: return [4, getJobs()];
                 case 1:
                     dataToInsert = _a.sent();
-                    console.log(dataToInsert);
                     return [4, getHandlebarTemplate('js/templates/job.hbs')];
                 case 2:
                     HBTemplate = _a.sent();
                     template = Handlebars.compile(HBTemplate);
                     dataToInsert.forEach(function (job) {
-                        console.log(job);
                         jobsList.innerHTML += template(job);
                     });
                     return [2];
@@ -84,3 +82,8 @@ function populateHandlebars() {
     });
 }
 populateHandlebars();
+var filters = document.querySelectorAll('.languages p');
+filters.forEach(function (filter) {
+    filter.addEventListener('click', function () {
+    });
+});

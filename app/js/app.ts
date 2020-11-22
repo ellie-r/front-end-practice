@@ -17,12 +17,9 @@ async function getHandlebarTemplate(path: string) {
 
 async function populateHandlebars() {
     let dataToInsert = await getJobs();
-    console.log(dataToInsert);
     let HBTemplate = await getHandlebarTemplate('js/templates/job.hbs');
-
     let template: Function = Handlebars.compile(HBTemplate);
     dataToInsert.forEach( (job)=> {
-        console.log(job);
         jobsList.innerHTML += template(job);
     })
 
@@ -30,3 +27,11 @@ async function populateHandlebars() {
 }
 
 populateHandlebars();
+
+let filters: NodeListOf<Element> = document.querySelectorAll('.languages p');
+filters.forEach( (filter) => {
+    filter.addEventListener('click', ()=>{
+
+    })
+
+})
