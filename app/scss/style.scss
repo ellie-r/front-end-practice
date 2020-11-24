@@ -10,6 +10,44 @@ header img {
   width: 100%;
 }
 
+.filterSection {
+  margin: 0 {
+    top: -77px;
+    left: 100px;
+    right: 100px;
+  }
+}
+
+.filters {
+  margin: 50px 0;
+  background-color: white;
+  display: flex;
+  border-radius: 8px;
+  position: relative;
+  padding: 11px;
+}
+
+.filter {
+  margin: 5px;
+  background-color: hsl(180, 31%, 95%);
+  color:  hsl(180, 29%, 50%);
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  p {
+    margin: 0;
+  }
+  .filterName {
+    padding: 8px;
+  }
+  .filterExit {
+    padding: 8px;
+    background-color: hsl(180, 29%, 50%);
+    color: white;
+  }
+}
+
 .jobsList {
   margin: 0 100px;
 }
