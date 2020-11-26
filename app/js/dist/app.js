@@ -35,6 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var jobsList = document.querySelector('.jobsList');
+var filtersList = document.querySelector('.filters');
 function getJobs() {
     return __awaiter(this, void 0, void 0, function () {
         var data;
@@ -61,12 +62,15 @@ function getHandlebarTemplate(path) {
         });
     });
 }
-function populateHandlebars() {
+var currentFilters = [];
+function populatePage(currentFilters) {
     return __awaiter(this, void 0, void 0, function () {
-        var dataToInsert, HBTemplate, template;
+        var dataToInsert, HBTemplate, template, selectFilters;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, getJobs()];
+                case 0:
+                    jobsList.innerHTML = '';
+                    return [4, getJobs()];
                 case 1:
                     dataToInsert = _a.sent();
                     return [4, getHandlebarTemplate('js/templates/job.hbs')];
@@ -74,16 +78,40 @@ function populateHandlebars() {
                     HBTemplate = _a.sent();
                     template = Handlebars.compile(HBTemplate);
                     dataToInsert.forEach(function (job) {
-                        jobsList.innerHTML += template(job);
+                        if (currentFilters.length > 0) {
+                            if (job.languages.some(function (language) { return currentFilters.includes(language); })) {
+                                jobsList.innerHTML += template(job);
+                            }
+                        }
+                        else {
+                            jobsList.innerHTML += template(job);
+                        }
+                    });
+                    selectFilters = document.querySelectorAll('.toFilter');
+                    console.log(selectFilters);
+                    selectFilters.forEach(function (filter) {
+                        filter.addEventListener('click', addFilter);
                     });
                     return [2];
             }
         });
     });
 }
-populateHandlebars();
-var filters = document.querySelectorAll('.languages p');
-filters.forEach(function (filter) {
-    filter.addEventListener('click', function () {
+function addFilter(e) {
+    return __awaiter(this, void 0, void 0, function () {
+        var FilterTemplate, template;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4, getHandlebarTemplate('js/templates/filterOn.hbs')];
+                case 1:
+                    FilterTemplate = _a.sent();
+                    template = Handlebars.compile(FilterTemplate);
+                    filtersList.innerHTML += template({ filter: e.target.textContent });
+                    currentFilters.push(e.target.textContent.toString());
+                    populatePage(currentFilters);
+                    return [2];
+            }
+        });
     });
-});
+}
+populatePage(currentFilters);
