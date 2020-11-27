@@ -21,40 +21,34 @@ async function populatePage(currentFilters) {
     let HBTemplate = await getHandlebarTemplate('js/templates/job.hbs');
     let template: Function = Handlebars.compile(HBTemplate);
     dataToInsert.forEach( (job)=> {
-            // if (currentFilters.length == 1) {
-            //     if (job.languages.includes(currentFilters[0])) {
-            //         jobsList.innerHTML += template(job);
-            //     }
-            // } else if ( currentFilters.length > 1) {
-            //         if (job.languages.some( (language) => {
-            //                 currentFilters.includes(language);
-            //             }
-            //         )) {
-            //             jobsList.innerHTML += template(job);
-            //             console.log('hhhh');
-            //         }
-            // }
-            if (currentFilters.length > 0) {
-                if(job.languages.some(language => currentFilters.includes(language))) {
-                    jobsList.innerHTML += template(job);
-                }
-            } else {
+        let jobsPartsToCheck: [string] = JSON.parse(JSON.stringify(job.languages));
+        jobsPartsToCheck.push(job.level);
+        jobsPartsToCheck.push(job.role);
+        if (currentFilters.length > 0) {
+            if(jobsPartsToCheck.some(part => currentFilters.includes(part))) {
                 jobsList.innerHTML += template(job);
             }
+        } else {
+            jobsList.innerHTML += template(job);
+        }
         }
     )
     let selectFilters: NodeListOf<Element> = document.querySelectorAll('.toFilter');
     console.log(selectFilters)
     selectFilters.forEach( (filter) => {
-            filter.addEventListener('click', addFilter)
-        }
-    )
+        filter.addEventListener('click', addFilter)
+    })
 }
 
 
 async function addFilter(e) {
     let FilterTemplate = await getHandlebarTemplate('js/templates/filterOn.hbs');
     let template: Function = Handlebars.compile(FilterTemplate);
+    let filtersBox: HTMLElement = document.querySelector('.filters');
+    console.log(filtersBox.style.display);
+    if (!filtersBox.style.display) {
+        filtersBox.style.display = 'flex';
+    }
     filtersList.innerHTML += template({filter: e.target.textContent});
     currentFilters.push(e.target.textContent.toString());
     populatePage(currentFilters);
@@ -63,7 +57,6 @@ async function addFilter(e) {
 
 
 populatePage(currentFilters);
-
 
 
 

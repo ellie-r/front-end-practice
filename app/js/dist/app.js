@@ -78,8 +78,11 @@ function populatePage(currentFilters) {
                     HBTemplate = _a.sent();
                     template = Handlebars.compile(HBTemplate);
                     dataToInsert.forEach(function (job) {
+                        var jobsPartsToCheck = JSON.parse(JSON.stringify(job.languages));
+                        jobsPartsToCheck.push(job.level);
+                        jobsPartsToCheck.push(job.role);
                         if (currentFilters.length > 0) {
-                            if (job.languages.some(function (language) { return currentFilters.includes(language); })) {
+                            if (jobsPartsToCheck.some(function (part) { return currentFilters.includes(part); })) {
                                 jobsList.innerHTML += template(job);
                             }
                         }
@@ -99,13 +102,18 @@ function populatePage(currentFilters) {
 }
 function addFilter(e) {
     return __awaiter(this, void 0, void 0, function () {
-        var FilterTemplate, template;
+        var FilterTemplate, template, filtersBox;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4, getHandlebarTemplate('js/templates/filterOn.hbs')];
                 case 1:
                     FilterTemplate = _a.sent();
                     template = Handlebars.compile(FilterTemplate);
+                    filtersBox = document.querySelector('.filters');
+                    console.log(filtersBox.style.display);
+                    if (!filtersBox.style.display) {
+                        filtersBox.style.display = 'flex';
+                    }
                     filtersList.innerHTML += template({ filter: e.target.textContent });
                     currentFilters.push(e.target.textContent.toString());
                     populatePage(currentFilters);

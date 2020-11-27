@@ -19,9 +19,10 @@ header img {
 }
 
 .filters {
+  display: none;
   margin: 50px 0;
   background-color: white;
-  display: flex;
+  //display: flex;
   border-radius: 8px;
   position: relative;
   padding: 11px;
