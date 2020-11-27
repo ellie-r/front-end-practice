@@ -34,7 +34,6 @@ async function populatePage(currentFilters) {
         }
     )
     let selectFilters: NodeListOf<Element> = document.querySelectorAll('.toFilter');
-    console.log(selectFilters)
     selectFilters.forEach( (filter) => {
         filter.addEventListener('click', addFilter)
     })
@@ -45,12 +44,17 @@ async function addFilter(e) {
     let FilterTemplate = await getHandlebarTemplate('js/templates/filterOn.hbs');
     let template: Function = Handlebars.compile(FilterTemplate);
     let filtersBox: HTMLElement = document.querySelector('.filters');
-    console.log(filtersBox.style.display);
-    if (!filtersBox.style.display) {
-        filtersBox.style.display = 'flex';
-    }
     filtersList.innerHTML += template({filter: e.target.textContent});
     currentFilters.push(e.target.textContent.toString());
+    if (currentFilters.length > 0) {
+        if (!filtersBox.style.display) {
+            filtersBox.style.display = 'flex';
+        }
+    } else {
+        if (filtersBox.style.display) {
+            filtersBox.style.display = 'none';
+        }
+    }
     populatePage(currentFilters);
 }
 

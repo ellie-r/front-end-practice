@@ -91,7 +91,6 @@ function populatePage(currentFilters) {
                         }
                     });
                     selectFilters = document.querySelectorAll('.toFilter');
-                    console.log(selectFilters);
                     selectFilters.forEach(function (filter) {
                         filter.addEventListener('click', addFilter);
                     });
@@ -110,12 +109,18 @@ function addFilter(e) {
                     FilterTemplate = _a.sent();
                     template = Handlebars.compile(FilterTemplate);
                     filtersBox = document.querySelector('.filters');
-                    console.log(filtersBox.style.display);
-                    if (!filtersBox.style.display) {
-                        filtersBox.style.display = 'flex';
-                    }
                     filtersList.innerHTML += template({ filter: e.target.textContent });
                     currentFilters.push(e.target.textContent.toString());
+                    if (currentFilters.length > 0) {
+                        if (!filtersBox.style.display) {
+                            filtersBox.style.display = 'flex';
+                        }
+                    }
+                    else {
+                        if (filtersBox.style.display) {
+                            filtersBox.style.display = 'none';
+                        }
+                    }
                     populatePage(currentFilters);
                     return [2];
             }
