@@ -1,3 +1,4 @@
+
 let jobsList: HTMLElement = document.querySelector('.jobsList');
 let filtersList: HTMLElement = document.querySelector('.filters');
 
@@ -13,6 +14,7 @@ async function getHandlebarTemplate(path: string) {
     )
     return response.text()
 }
+
 let currentFilters = [];
 
 async function populatePage(currentFilters) {
@@ -25,7 +27,7 @@ async function populatePage(currentFilters) {
         jobsPartsToCheck.push(job.level);
         jobsPartsToCheck.push(job.role);
         if (currentFilters.length > 0) {
-            if(jobsPartsToCheck.some(part => currentFilters.includes(part))) {
+            if(currentFilters.every(part => jobsPartsToCheck.includes(part))) {
                 jobsList.innerHTML += template(job);
             }
         } else {
@@ -37,17 +39,21 @@ async function populatePage(currentFilters) {
     selectFilters.forEach( (filter) => {
         filter.addEventListener('click', addFilter)
     })
-}
 
+    let deleteFilters: NodeListOf<Element> = document.querySelectorAll('.filterExit');
+    deleteFilters.forEach( (filter) => {
+        filter.addEventListener('click', removeFilters)
+    })
+}
 
 async function addFilter(e) {
     let FilterTemplate = await getHandlebarTemplate('js/templates/filterOn.hbs');
     let template: Function = Handlebars.compile(FilterTemplate);
     let filtersBox: HTMLElement = document.querySelector('.filters');
-    filtersList.innerHTML += template({filter: e.target.textContent});
     currentFilters.push(e.target.textContent.toString());
+    filtersList.innerHTML += template({filter: e.target.textContent});
     if (currentFilters.length > 0) {
-        if (!filtersBox.style.display) {
+        if (!filtersBox.style.display || filtersBox.style.display=='none' ) {
             filtersBox.style.display = 'flex';
         }
     } else {
@@ -58,7 +64,26 @@ async function addFilter(e) {
     populatePage(currentFilters);
 }
 
-
+async function removeFilters(e) {
+    let filterToDelete: string;
+    let filtersBox: HTMLElement = document.querySelector('.filters');
+    if (e.target.id.toString().includes('parent')){
+        filterToDelete = e.target.id.split('-')[1];
+    } else {
+        filterToDelete = e.target.parentElement.id.split('-')[1];
+    }
+    let filterIndex: number = currentFilters.indexOf(filterToDelete);
+    currentFilters.splice( filterIndex - 1 , 1);
+    let toSelect = '#filter-' + filterToDelete;
+    let filterInHTML: HTMLElement = document.querySelector(toSelect);
+    filterInHTML.remove();
+    if (currentFilters.length == 0) {
+        if (filtersBox.style.display) {
+            filtersBox.style.display = 'none';
+        }
+    }
+    populatePage(currentFilters);
+}
 
 populatePage(currentFilters);
 

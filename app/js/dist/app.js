@@ -65,7 +65,7 @@ function getHandlebarTemplate(path) {
 var currentFilters = [];
 function populatePage(currentFilters) {
     return __awaiter(this, void 0, void 0, function () {
-        var dataToInsert, HBTemplate, template, selectFilters;
+        var dataToInsert, HBTemplate, template, selectFilters, deleteFilters;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -82,7 +82,7 @@ function populatePage(currentFilters) {
                         jobsPartsToCheck.push(job.level);
                         jobsPartsToCheck.push(job.role);
                         if (currentFilters.length > 0) {
-                            if (jobsPartsToCheck.some(function (part) { return currentFilters.includes(part); })) {
+                            if (currentFilters.every(function (part) { return jobsPartsToCheck.includes(part); })) {
                                 jobsList.innerHTML += template(job);
                             }
                         }
@@ -93,6 +93,10 @@ function populatePage(currentFilters) {
                     selectFilters = document.querySelectorAll('.toFilter');
                     selectFilters.forEach(function (filter) {
                         filter.addEventListener('click', addFilter);
+                    });
+                    deleteFilters = document.querySelectorAll('.filterExit');
+                    deleteFilters.forEach(function (filter) {
+                        filter.addEventListener('click', removeFilters);
                     });
                     return [2];
             }
@@ -109,10 +113,10 @@ function addFilter(e) {
                     FilterTemplate = _a.sent();
                     template = Handlebars.compile(FilterTemplate);
                     filtersBox = document.querySelector('.filters');
-                    filtersList.innerHTML += template({ filter: e.target.textContent });
                     currentFilters.push(e.target.textContent.toString());
+                    filtersList.innerHTML += template({ filter: e.target.textContent });
                     if (currentFilters.length > 0) {
-                        if (!filtersBox.style.display) {
+                        if (!filtersBox.style.display || filtersBox.style.display == 'none') {
                             filtersBox.style.display = 'flex';
                         }
                     }
@@ -124,6 +128,32 @@ function addFilter(e) {
                     populatePage(currentFilters);
                     return [2];
             }
+        });
+    });
+}
+function removeFilters(e) {
+    return __awaiter(this, void 0, void 0, function () {
+        var filterToDelete, filtersBox, filterIndex, toSelect, filterInHTML;
+        return __generator(this, function (_a) {
+            filtersBox = document.querySelector('.filters');
+            if (e.target.id.toString().includes('parent')) {
+                filterToDelete = e.target.id.split('-')[1];
+            }
+            else {
+                filterToDelete = e.target.parentElement.id.split('-')[1];
+            }
+            filterIndex = currentFilters.indexOf(filterToDelete);
+            currentFilters.splice(filterIndex - 1, 1);
+            toSelect = '#filter-' + filterToDelete;
+            filterInHTML = document.querySelector(toSelect);
+            filterInHTML.remove();
+            if (currentFilters.length == 0) {
+                if (filtersBox.style.display) {
+                    filtersBox.style.display = 'none';
+                }
+            }
+            populatePage(currentFilters);
+            return [2];
         });
     });
 }
