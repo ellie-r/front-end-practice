@@ -6,8 +6,11 @@ body {
   margin: 0;
 }
 
-header img {
+header {
   width: 100%;
+  background-image: url('../images/bg-header-desktop.svg');
+  height: 156px;
+  background-color: hsl(180, 29%, 50%);
 }
 
 .filterSection {
@@ -16,13 +19,24 @@ header img {
     left: 100px;
     right: 100px;
   }
+  visibility: hidden;
+  .clear {
+    color: hsl(180, 29%, 50%);
+    position: absolute;
+    top: 142px;
+    right: 112px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .filters {
-  display: none;
+  display: flex;
   margin: 50px 0;
   background-color: white;
-  //display: flex;
   border-radius: 8px;
   position: relative;
   padding: 11px;
@@ -36,6 +50,7 @@ header img {
   font-size: 0.8rem;
   display: flex;
   align-items: center;
+  border-radius: 5px;
   p {
     margin: 0;
   }
@@ -46,11 +61,16 @@ header img {
     padding: 8px;
     background-color: hsl(180, 29%, 50%);
     color: white;
+    border-radius: 5px;
+    &:hover {
+      background-color: hsl(180, 14%, 20%);
+    }
   }
+
 }
 
 .jobsList {
-  margin: 0 100px;
+  margin: 100px;
 }
 
 .job {
@@ -144,7 +164,13 @@ header img {
     padding: 8px;
     font-weight: 700;
     font-size: 0.8rem;
+    border-radius: 5px;
+    &:hover {
+      color: white;
+      background-color: hsl(180, 29%, 50%);
+    }
   }
+
 }
 
 .attribution {
@@ -152,5 +178,65 @@ header img {
   text-align: center;
   a {
     color: hsl(228, 45%, 44%);
+  }
+}
+
+@media only screen and (max-device-width: 800px) {
+  .jobsList {
+    margin: 100px 50px;
+  }
+  .job {
+    flex-direction: column;
+    padding-left: 15px;
+    img {
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      left: -9px;
+      top: -25px;
+    }
+    .featured {
+      .line {
+        position: absolute;
+        left: 0;
+      }
+    }
+    .top {
+      justify-content: flex-start;
+      h3 {
+        font-size: 0.9rem;
+      }
+    }
+    .middle {
+      h2 {
+        font-size: 1.1rem;
+      }
+      ul {
+        font-size: 0.8rem;
+      }
+    }
+    .languages {
+      flex-wrap: wrap;
+      margin: 0 {
+        bottom: 15px;
+      }
+      justify-content: flex-start;
+      align-self: flex-start;
+      p {
+        margin-left: 0;
+        margin-right: 10px;
+      }
+    }
+  }
+  .filterSection {
+    margin-left: 0;
+    margin-right: 0;
+    .filters {
+      margin: 50px;
+    }
+  }
+
+  header {
+      background-image: url('../images/bg-header-mobile.svg');
   }
 }

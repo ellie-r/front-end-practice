@@ -1,6 +1,6 @@
-
 let jobsList: HTMLElement = document.querySelector('.jobsList');
 let filtersList: HTMLElement = document.querySelector('.filters');
+let currentFilters = [];
 
 async function getJobs(): Promise<any> {
     let data = await fetch('data.json');
@@ -15,7 +15,7 @@ async function getHandlebarTemplate(path: string) {
     return response.text()
 }
 
-let currentFilters = [];
+
 
 async function populatePage(currentFilters) {
     jobsList.innerHTML = '';
@@ -23,7 +23,7 @@ async function populatePage(currentFilters) {
     let HBTemplate = await getHandlebarTemplate('js/templates/job.hbs');
     let template: Function = Handlebars.compile(HBTemplate);
     dataToInsert.forEach( (job)=> {
-        let jobsPartsToCheck: [string] = JSON.parse(JSON.stringify(job.languages));
+        let jobsPartsToCheck = job.languages.concat(job.tools);
         jobsPartsToCheck.push(job.level);
         jobsPartsToCheck.push(job.role);
         if (currentFilters.length > 0) {
@@ -33,8 +33,7 @@ async function populatePage(currentFilters) {
         } else {
             jobsList.innerHTML += template(job);
         }
-        }
-    )
+    })
     let selectFilters: NodeListOf<Element> = document.querySelectorAll('.toFilter');
     selectFilters.forEach( (filter) => {
         filter.addEventListener('click', addFilter)
@@ -42,46 +41,60 @@ async function populatePage(currentFilters) {
 
     let deleteFilters: NodeListOf<Element> = document.querySelectorAll('.filterExit');
     deleteFilters.forEach( (filter) => {
-        filter.addEventListener('click', removeFilters)
+        filter.addEventListener('click', removeFilter)
     })
+
+    let clearButton: HTMLElement = document.querySelector('.clear');
+    clearButton.addEventListener('click', removeAllFilters   )
 }
 
 async function addFilter(e) {
     let FilterTemplate = await getHandlebarTemplate('js/templates/filterOn.hbs');
     let template: Function = Handlebars.compile(FilterTemplate);
-    let filtersBox: HTMLElement = document.querySelector('.filters');
-    currentFilters.push(e.target.textContent.toString());
-    filtersList.innerHTML += template({filter: e.target.textContent});
-    if (currentFilters.length > 0) {
-        if (!filtersBox.style.display || filtersBox.style.display=='none' ) {
-            filtersBox.style.display = 'flex';
+    let filtersBox: HTMLElement = document.querySelector('.filterSection');
+    if(!currentFilters.includes(e.target.textContent.toString())){
+        currentFilters.push(e.target.textContent.toString());
+        filtersList.innerHTML += template({filter: e.target.textContent});
+        if (currentFilters.length > 0) {
+            if (!filtersBox.style.visibility || filtersBox.style.visibility == 'hidden') {
+                filtersBox.style.visibility = 'visible';
+            }
+        } else {
+            filtersBox.style.visibility = 'hidden';
         }
-    } else {
-        if (filtersBox.style.display) {
-            filtersBox.style.display = 'none';
-        }
+        populatePage(currentFilters);
     }
-    populatePage(currentFilters);
 }
 
-async function removeFilters(e) {
+async function removeFilter(e) {
     let filterToDelete: string;
-    let filtersBox: HTMLElement = document.querySelector('.filters');
+    let filtersBox: HTMLElement = document.querySelector('.filterSection');
     if (e.target.id.toString().includes('parent')){
         filterToDelete = e.target.id.split('-')[1];
     } else {
         filterToDelete = e.target.parentElement.id.split('-')[1];
     }
-    let filterIndex: number = currentFilters.indexOf(filterToDelete);
-    currentFilters.splice( filterIndex - 1 , 1);
+    currentFilters = currentFilters.filter( (filter) => {
+        return filter != filterToDelete.toString();
+    })
     let toSelect = '#filter-' + filterToDelete;
     let filterInHTML: HTMLElement = document.querySelector(toSelect);
     filterInHTML.remove();
     if (currentFilters.length == 0) {
-        if (filtersBox.style.display) {
-            filtersBox.style.display = 'none';
-        }
+        filtersBox.style.visibility = 'hidden';
     }
+    populatePage(currentFilters);
+}
+
+async function removeAllFilters() {
+    currentFilters.forEach( (filter) => {
+        let toSelect = '#filter-' + filter;
+        let filterInHTML: HTMLElement = document.querySelector(toSelect);
+        filterInHTML.remove();
+    })
+    currentFilters = [];
+    let filtersBox: HTMLElement = document.querySelector('.filterSection');
+    filtersBox.style.visibility = 'hidden';
     populatePage(currentFilters);
 }
 
