@@ -97,6 +97,3 @@ async function removeAllFilters() {
 }
 
 populatePage(currentFilters);
-
-
-
