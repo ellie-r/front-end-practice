@@ -1,0 +1,38 @@
+<div class="job">
+{{#if featured}}
+    <div class="featured"><div class="line"></div></div>
+{{/if}}
+    <img src="{{logo}}" alt="company logo">
+    <div class="middle">
+        <div class="top">
+            <h3>{{company}}</h3>
+            <div class="stickers">
+                {{#if new}}
+                    <p class="new">NEW!</p>
+                {{/if}}
+                {{#if featured}}
+                    <p class="featured">FEATURED</p>
+                {{/if}}
+            </div>
+        </div>
+        <h2>{{position}}</h2>
+        <ul class="otherInfo">
+            <li class="noBullet">{{postedAt}}</li>
+            <li>{{contract}}</li>
+            <li>{{location}}</li>
+        </ul>
+    </div>
+    <div class="languages">
+            <p class="toFilter">{{role}}</p>
+            <p class="toFilter">{{level}}</p>
+            {{#each languages}}
+                <p class="toFilter">{{this}}</p>
+            {{/each}}
+            {{#if tools}}
+                {{#each tools}}
+                    <p class="toFilter">{{this}}</p>
+                {{/each}}
+            {{/if}}
+    </div>
+</div>
+

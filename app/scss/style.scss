@@ -1,5 +1,254 @@
 body {
   display: block;
-  color: red;
-  border: 1px;
+  background-color: hsl(180, 52%, 96%);
+  font-size: 15px;
+  font-family: 'Spartan', sans-serif;
+  margin: 0;
+}
+
+header {
+  width: 100%;
+  background-image: url('../images/bg-header-desktop.svg');
+  height: 156px;
+  background-color: hsl(180, 29%, 50%);
+}
+
+.filterSection {
+  margin: 0 {
+    top: -77px;
+    left: 100px;
+    right: 100px;
+  }
+  visibility: hidden;
+  .clear {
+    color: hsl(180, 29%, 50%);
+    position: absolute;
+    top: 142px;
+    right: 112px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.filters {
+  display: flex;
+  margin: 50px 0;
+  background-color: white;
+  border-radius: 8px;
+  position: relative;
+  padding: 11px;
+}
+
+.filter {
+  margin: 5px;
+  background-color: hsl(180, 31%, 95%);
+  color:  hsl(180, 29%, 50%);
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  p {
+    margin: 0;
+  }
+  .filterName {
+    padding: 8px;
+  }
+  .filterExit {
+    padding: 8px;
+    background-color: hsl(180, 29%, 50%);
+    color: white;
+    border-radius: 5px;
+    &:hover {
+      background-color: hsl(180, 14%, 20%);
+    }
+  }
+}
+
+.jobsList {
+  margin: 100px;
+}
+
+.job {
+  display: flex;
+  background-color: white;
+  margin: 50px 0;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 3px 6px 19px -7px hsl(180, 29%, 50%);
+  img {
+    height: 90px;
+    align-self: center;
+    padding: 0 30px;
+  }
+  .featured {
+    .line {
+      width: 5px;
+      background-color: hsl(180, 29%, 50%);
+      height: 100%;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+  }
+  &:before {
+    width: 5px;
+    background-color: hsl(180, 29%, 50%);
+    height: 100%;
+  }
+}
+
+.top {
+  color: hsl(180, 29%, 50%);
+  display: flex;
+  align-items: center;
+  h2 {
+    margin: 0;
+  }
+}
+
+.middle {
+  width: 100%;
+  padding: 20px 0;
+  h2 {
+    margin: 0;
+  }
+}
+
+.stickers {
+  display: flex;
+  align-items: center;
+  p {
+    padding: 6px;
+    margin: 0 {
+      left: 10px;
+    }
+    color: hsl(180, 52%, 96%);
+    font-size: 0.7rem;
+  }
+  .new {
+    background-color: hsl(180, 29%, 50%);
+    border-radius: 15px;
+  }
+  .featured {
+    background-color: hsl(180, 14%, 20%);
+    border-radius: 15px;
+  }
+}
+
+.otherInfo {
+  display: flex;
+  justify-content: flex-start;
+  color:  hsl(180, 8%, 52%);
+  padding: 0;
+  .noBullet {
+    list-style-type: none;
+  }
+  li {
+    padding-right: 25px;
+  }
+}
+
+.languages {
+  display: flex;
+  align-self: center;
+  margin-left: auto;
+  margin-right: 10px;
+  p {
+    margin: 5px;
+    background-color: hsl(180, 31%, 95%);
+    color:  hsl(180, 29%, 50%);
+    padding: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    &:hover {
+      color: white;
+      background-color: hsl(180, 29%, 50%);
+    }
+  }
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  a {
+    color: hsl(228, 45%, 44%);
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .languages {
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (max-width: 767.98px)  {
+  .jobsList {
+    margin: 100px 60px;
+  }
+  .job {
+    flex-direction: column;
+    padding-left: 15px;
+    img {
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      left: -9px;
+      top: -25px;
+    }
+    .featured {
+      .line {
+        position: absolute;
+        left: 0;
+      }
+    }
+    .top {
+      justify-content: flex-start;
+      h3 {
+        font-size: 0.9rem;
+      }
+    }
+    .middle {
+      h2 {
+        font-size: 1.1rem;
+      }
+      ul {
+        font-size: 0.8rem;
+      }
+      .otherInfo {
+        &:after {
+          content: "";
+          position: absolute;
+          top: 129px;
+          width: 87%;
+          height: 1px;
+          background-color: hsl(180, 8%, 52%) ;
+        }
+      }
+    }
+    .languages {
+      margin: 0 {
+        bottom: 15px;
+      }
+      justify-content: flex-start;
+      align-self: flex-start;
+      p {
+        margin-left: 0;
+        margin-right: 20px;
+      }
+    }
+  }
+  .filterSection {
+    margin-left: 0;
+    margin-right: 0;
+    .filters {
+      margin: 50px;
+    }
+  }
+  header {
+      background-image: url('../images/bg-header-mobile.svg');
+  }
 }
