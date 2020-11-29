@@ -12,7 +12,7 @@ async function getHandlebarTemplate(path: string) {
         path,
         {method: 'get'}
     )
-    return response.text()
+    return response.text();
 }
 
 async function populatePage(currentFilters) {
@@ -34,16 +34,16 @@ async function populatePage(currentFilters) {
     })
     let selectFilters: NodeListOf<Element> = document.querySelectorAll('.toFilter');
     selectFilters.forEach( (filter) => {
-        filter.addEventListener('click', addFilter)
+        filter.addEventListener('click', addFilter);
     })
 
     let deleteFilters: NodeListOf<Element> = document.querySelectorAll('.filterExit');
     deleteFilters.forEach( (filter) => {
-        filter.addEventListener('click', removeFilter)
+        filter.addEventListener('click', removeFilter);
     })
 
     let clearButton: HTMLElement = document.querySelector('.clear');
-    clearButton.addEventListener('click', removeAllFilters   )
+    clearButton.addEventListener('click', removeAllFilters);
 }
 
 async function addFilter(e) {
