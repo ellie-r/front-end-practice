@@ -218,15 +218,12 @@ header {
       ul {
         font-size: 0.8rem;
       }
-      .otherInfo {
-        &:after {
-          content: "";
-          position: absolute;
-          top: 129px;
-          width: 87%;
-          height: 1px;
-          background-color: hsl(180, 8%, 52%) ;
-        }
+      &:after {
+        content: "";
+        position: absolute;
+        width: 87%;
+        height: 1px;
+        background-color: hsl(180, 8%, 52%) ;
       }
     }
     .languages {
