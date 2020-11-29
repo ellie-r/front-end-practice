@@ -99,8 +99,8 @@ header {
     background-color: hsl(180, 29%, 50%);
     height: 100%;
   }
-
 }
+
 .top {
   color: hsl(180, 29%, 50%);
   display: flex;
@@ -170,7 +170,6 @@ header {
       background-color: hsl(180, 29%, 50%);
     }
   }
-
 }
 
 .attribution {
@@ -232,7 +231,6 @@ header {
       }
     }
     .languages {
-      flex-wrap: wrap;
       margin: 0 {
         bottom: 15px;
       }
@@ -251,7 +249,6 @@ header {
       margin: 50px;
     }
   }
-
   header {
       background-image: url('../images/bg-header-mobile.svg');
   }

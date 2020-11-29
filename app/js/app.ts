@@ -15,8 +15,6 @@ async function getHandlebarTemplate(path: string) {
     return response.text()
 }
 
-
-
 async function populatePage(currentFilters) {
     jobsList.innerHTML = '';
     let dataToInsert = await getJobs();
