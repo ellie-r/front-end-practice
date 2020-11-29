@@ -22,9 +22,9 @@ header {
   visibility: hidden;
   .clear {
     color: hsl(180, 29%, 50%);
-    position: absolute;
-    top: 142px;
-    right: 112px;
+    //position: absolute;
+    //top: 142px;
+    //right: 112px;
     font-size: 0.8rem;
     font-weight: 700;
     &:hover {
@@ -33,13 +33,20 @@ header {
   }
 }
 
-.filters {
+.filtersAndClear {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 50px 0;
   background-color: white;
   border-radius: 8px;
   position: relative;
   padding: 11px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .filter {
@@ -238,11 +245,14 @@ header {
       }
     }
   }
+  .filtersAndClear {
+    margin: 50px 60px;
+  }
   .filterSection {
     margin-left: 0;
     margin-right: 0;
     .filters {
-      margin: 50px;
+      //margin: 50px;
     }
   }
   header {
